@@ -9,7 +9,7 @@
 
         function startStop() {
             if (timer === null) {
-                timer = setTimeout(ebreszto, 3000);
+                timer = setTimeout(alarm, 3000);
                 document.getElementById('start_stop').innerText = 'STOP';
             } else {
                 clearTimeout(timer);
@@ -18,11 +18,11 @@
             }
         }
 
-        function ebreszto() {
+        function alarm() {
             timer = null;
             document.getElementById('start_stop').innerText = 'START';
 
-            alert('Ébresztő!!!');
+            alert('ALARM!!!');
         }
     </script>
 </head>
