@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Felhasználók</title>
+
+    <style>
+        li.lathatatlan {
+            display: none;
+        }
+
+        td:first-child {
+            color: blue;
+        }
+
+        body {
+            background-color: blue;
+        }
+
+        #tartalom {
+            width: 60%;
+            border: 1px solid gray;
+            margin: auto;
+            background-color: white;
+        }
+
+        @media screen and (max-width: 800px) {
+            body {
+                background-color: revert;
+            }
+
+            #tartalom {
+                width: revert;
+                border: revert;
+                margin: revert;
+                background-color: revert;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: revert;
+            }
+
+            #tartalom {
+                width: revert;
+                border: revert;
+                margin: revert;
+                background-color: revert;
+            }
+        }
+    </style>
+
+    <script>
+        function ujFelhasznalo() {
+            const felhasznalonev = document.getElementById('felhasznalonev').value;
+            const felhasznalok = document.getElementById('felhasznalok');
+            const li = document.createElement('li');
+            li.innerText = felhasznalonev;
+            felhasznalok.append(li);
+
+            naploz(`${felhasznalonev} létrehozva.`)
+        }
+
+        function felhasznalokSzurese() {
+            const csakEmail = document.getElementById('csak_email').checked;
+            const lis = document.querySelectorAll('#felhasznalok li');
+
+            if (csakEmail) {
+                naploz('Csak e-mail címek megjelenítése.')
+            } else {
+                naploz('Minden felhasználó megjelenítése.')
+            }
+
+            for (let li of lis) {
+                const re = /\S+@\S+\.\S+/;
+                if (!csakEmail || re.test(li.innerText)) {
+                    li.classList.remove('lathatatlan');
+                } else {
+                    li.classList.add('lathatatlan');
+                }
+            }
+        }
+
+        let pingFolyamat = null;
+
+        function startStop() {
+            if (pingFolyamat === null) {
+                pingFolyamat = setInterval(ping, 5000);
+            } else {
+                clearInterval(pingFolyamat);
+                pingFolyamat = null;
+            }
+        }
+
+        function ping() {
+            naploz('Ping');
+        }
+
+        function naploz(esemeny) {
+            const naplo = document.getElementById('naplo');
+            const tr = naplo.insertRow(-1);
+            let td = tr.insertCell(-1);
+            td.innerText = new Date().toLocaleString();
+            td = tr.insertCell(-1);
+            td.innerText = esemeny;
+        }
+    </script>
+</head>
+<body>
+<section id="tartalom">
+    <h1>Új felhasználó</h1>
+
+    <label for="felhasznalonev">Felhasználónév</label>
+    <input id="felhasznalonev" type="text">
+    <button type="button" onclick="ujFelhasznalo()">Hozzáad</button>
+
+    <br>
+
+    <label for="csak_email">Csak e-mail címek megjelenítése</label>
+    <input id="csak_email" type="checkbox" onchange="felhasznalokSzurese()">
+
+    <br>
+
+    <label for="ping">Ping</label>
+    <input id="ping" type="checkbox" onchange="startStop()">
+
+    <h1>Felhasználók</h1>
+    <ul id="felhasznalok"></ul>
+
+    <h1>Napló</h1>
+    <table id="naplo">
+        <thead>
+        <tr>
+            <th>Idő</th>
+            <th>Esemény</th>
+        </tr>
+        </thead>
+    </table>
+</section>
+</body>
+</html>
