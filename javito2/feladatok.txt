@@ -1,0 +1,58 @@
+1. (+0.5 jegy)
+Készítse el mintának megfelelően a weboldal vázát (címsorok, űrlapok, táblázat fejléce, üres számozatlan felsorolás...).
+A weboldal legyen rendelkezzen 2 szakasszal (section).
+Az egyik szakasz rendelkezzen egy "bal" azonosítókijelölővel, a másik pedig egy "jobb" azonosítókijelölővel.
+A két szakasz kerüljön egymás mellé (a szélességük legyen 45%).
+
+A táblázat páratlan sorainak a háttérszíne legyen világosszürke (pszeudoszelektor).
+800px felbontás alatt vagy nyomtatási képnél a két szakasz kerüljön egymás alá (media query).
+Használja a
+
+float: revert;
+width: revert;
+
+beállításokat.
+
+2. (+1 jegy)
+
+Hozzon létre egy
+
+function naploz(esemeny) {
+    // ...
+}
+
+függvényt.
+
+A függvény fűzzön hozzá a mintának megfelelően egy új sort a bejelentkezések táblázathoz.
+Az időhöz használja a new Date().toLocaleString() kifejezést.
+
+3. (+1 jegy)
+
+Ha az előző feladatban nem tudta megoldani a "naploz" függvényt,
+akkor használja a
+
+function naploz(esemeny) {
+    console.log(esemeny);
+}
+
+implementációt.
+
+A bejelentkezés gombra kattintva jelenjen meg a bejelentkezések táblázatban egy "Bejelentkezés" bejegyzés a naploz függvény segítségével.
+Ha az időtúllépés értéke nem 0, akkor a megadott számú MÁSODPERC elteltével jelenjen meg egy "Kijelentkezés" bejegyzés a naplóban.
+
+4. (+0.5 jegy)
+A hozzáad gombra kattintva fűzzünk hozzá egy új jelszót a korábbi jelszavak nevű számozatlan felsoroláshoz.
+
+5. (+1 jegy)
+Ha az előző feladatot nem tudta megoldani, akkor HTML kódban adjon hozzá pár véletlenszerű bejegyzést a felsoroláshoz.
+
+Hozzon létre egy "gyenge" nevű CSS osztályt, az osztály állítsa a betűket pirosra és félkövérre.
+Ha a gyenge jelszavak megjelenítése be van jelölve, akkor adjuk hozzá a "gyenge" osztálykijelölőt a lista megfelelő elemeihez,
+ha nincs bejelölve, akkor távolítsuk el az összes elemről.
+
+Egy jelszó akkor gyenge, ha túl rövid, nincs benne szám, nincs benne speciális karakter, nincs benne kisbetű vagy nagybetű.
+Ezt a következő reguláris kifejezés segítségével tudják eldönteni.
+
+const re = /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/;
+alert(re.test('abc'));
+alert(re.test('Abc123...'));

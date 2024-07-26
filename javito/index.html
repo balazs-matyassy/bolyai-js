@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Segédprogramok</title>
+
+    <style>
+        #bal {
+            width: 45%;
+            float: left;
+        }
+
+        #jobb {
+            width: 45%;
+            float: right;
+        }
+
+        tr:nth-child(odd) {
+            font-weight: bold;
+        }
+
+        li.negativ {
+            color: red;
+        }
+
+        @media screen and (max-width: 800px), print {
+            #bal, #jobb {
+                width: revert;
+                float: revert;
+            }
+        }
+    </style>
+
+    <script>
+        function teszteles() {
+            const jelszo = document.getElementById('jelszo').value;
+            const re = /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/;
+            const eros = !re.test(jelszo) ? 'IGEN' : 'NEM';
+            const jelszavak = document.getElementById('jelszavak');
+            const tr = jelszavak.insertRow(-1);
+
+            let td = tr.insertCell(-1);
+            td.innerText = jelszo;
+            td = tr.insertCell(-1);
+            td.innerText = new Date().toLocaleString();
+            td = tr.insertCell(-1);
+            td.innerText = eros;
+        }
+
+        function valtozas(ertek) {
+            const aktualis = parseInt(document.getElementById('aktualis').value) + ertek;
+            const minimum = parseInt(document.getElementById('minimum').value);
+            const maximum = parseInt(document.getElementById('maximum').value);
+
+            document.getElementById('aktualis').value = aktualis;
+
+            if (aktualis < minimum) {
+                document.getElementById('minimum').value = aktualis;
+            }
+
+            if (aktualis > maximum) {
+                document.getElementById('maximum').value = aktualis;
+            }
+
+            const ul = document.getElementById('egyenlegek');
+            const li = document.createElement('li');
+            li.innerText = aktualis;
+
+            if (aktualis < 0) {
+                li.classList.add('negativ');
+            }
+
+            ul.append(li);
+        }
+
+        function novel() {
+            valtozas(50);
+        }
+
+        let novelFolyamat = null;
+
+        function startStop() {
+            if (novelFolyamat === null) {
+                novelFolyamat = setInterval(novel, 1000);
+                document.getElementById('start_stop').innerText = 'STOP';
+            } else {
+                clearInterval(novelFolyamat);
+                novelFolyamat = null;
+                document.getElementById('start_stop').innerText = 'START';
+            }
+        }
+
+        function torleszt() {
+            valtozas(-1400);
+        }
+
+        function hitel() {
+            valtozas(1000);
+            setTimeout(torleszt, 5000);
+        }
+
+        function feketites() {
+            const lis = document.querySelectorAll('li.negativ');
+
+            for (let li of lis) {
+                li.classList.remove('negativ');
+            }
+        }
+    </script>
+</head>
+<body>
+<section id="bal">
+    <h1>Jelszavak</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th><label for="jelszo">Jelszó</label></th>
+            <td><input id="jelszo" type="password"></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" onclick="teszteles()">Tesztel</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table id="jelszavak">
+        <thead>
+        <tr>
+            <th>Jelszó</th>
+            <th>Idő</th>
+            <th>Erős</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<section id="jobb">
+    <h1>Egyenleg</h1>
+    <table>
+        <tbody>
+        <tr>
+            <th><label for="aktualis">Aktuális</label></th>
+            <td><input id="aktualis" type="number" value="0" disabled></td>
+        </tr>
+        <tr>
+            <th><label for="minimum">Minimum</label></th>
+            <td><input id="minimum" type="number" value="0" disabled></td>
+        </tr>
+        <tr>
+            <th><label for="maximum">Maximum</label></th>
+            <td><input id="maximum" type="number" value="0" disabled></td>
+        </tr>
+        <tr>
+            <td>
+                <button id="start_stop" onclick="startStop()">START</button>
+            </td>
+            <td>
+                <button onclick="hitel()">HITEL</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="feketites()">FEKETÍT</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h2>Korábbi egyenlegek</h2>
+    <ul id="egyenlegek"></ul>
+</section>
+
+<script>
+    valtozas(0);
+</script>
+</body>
+</html>

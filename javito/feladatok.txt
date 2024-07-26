@@ -1,0 +1,68 @@
+0.
+Az egész tartalom legyen egy "bal" és egy "jobb" azonosítóval rendelkező section-be elhelyezve.
+A "bal" section szélessége legyen 45%, valamint legyen balra igazítva, a "jobb" section szélessége legyen 45% és legyen jobbra igazítva.
+
+1.  (+1 jegy)
+Hozzunk létre egy mintának megfelelő űrlapot és táblázatot.
+Ha a tesztel gombra kattintunk, akkor reguláris kifejezés segítségével döntsük el, hogy a megadott jelszó erősnek számít-e.
+(Legalább 8 karakter hosszú, van benne kisbetű, nagybetű, szám, egyéb karakter.)
+Az űrlap alatt található táblázatban a mintának megfelelően egy új sorban írjuk ki a tesztelés eredményét (jelszó, idő, erős-e).
+
+Az időt a new Date().toLocaleString() függvény segítségével írja ki.
+A következő reguláris kifejezés eldönti egy jelszóról, hogy GYENGE-e.
+Egy jelszó akkor erős, ha NEM GYENGE.
+
+const re = /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/;
+alert(re.test('abc'));
+alert(re.test('Abc123...'));
+
+2. (+1 jegy)
+Hozzunk létre egy mintának megfelelő egyenleg űrlapot és egy üres számozatlan felsorolást.
+(A kezdőértékek legyenek 0-ra állítva.)
+
+Hozzunk létre egy
+
+function valtozas(ertek) {
+    // ...
+}
+
+függvényt.
+
+A függvényt meghívva az aktuális egyenleg értéke változzon a megadott értékkel.
+(Pl. aktuális = 500, érték = 100, új aktuális = 600)
+Ha az új érték kisebb a minimumnál, akkor frissüljön a minimum.
+Ha az új érték nagyobb a maximumnál, akkor frissüljön a maximum.
+Az aktuális érték kerüljön beszúrásra a számozatlan felsorolásba.
+Ha az aktuális érték negatív, akkor a beszúrt "li" elem rendelkezzen a "negativ" nevű osztálykijelölővel.
+
+A "negativ" osztálykijelölővel rendelkező elemek színe legyen piros.
+
+A "body" végén hívjuk meg 0 paraméterrel a "valtozas" függvényt, hogy a felsorolásban megjelenjen egy 0 érték.
+(valtozas(0))
+
+3. (+1 jegy)
+Ha az előző feladatot nem tudta megoldani, akkor használja a következő függvényt:
+
+function valtozas(ertek) {
+    console.log(ertek);
+}
+
+Az egyenleges űrlaphoz adjunk egy START / STOP és egy HITEL gombot.
+A START gombra kattintva a gomb szövege változzon STOP-ra,
+valamint induljon el egy folyamat, amelyik másodpercenként meghívja a "valtozas" függvényt 50-es paraméterrel (valtozas(50)).
+
+A STOP gombra kattintva a gomb szövege változzon vissza START-ra, az egyenleget másodpercenként 50-el növelő folyamat pedig álljon le.
+
+A HITEL gombra kattintva azonnal növekedjen 1000-el az egyenleg (valtozas(1000), majd 5 másodperc múlva csökkenjen 1400-al (valtozas(-1400)).
+A megoldáshoz például létrehozhatunk egy "novel" és egy "torleszt" függvényt, amelyek meghívják a "valtozas" függvényt a megfelelő paraméterrel.
+(Anonim függvények használta is teljesen jó megoldás.)
+
+4. (+0.5 jegy)
+Adjunk hozzá az űrlaphoz egy feketít gombot.
+A gombra kattintva szedjuk le a negatív számokról a "negativ" osztálykijelölőket (a már megjelenített negatív számok változzanak feketére).
+Természetesen a jövőben hozzáadásra kerülő negatív számok továbbra is legyenek pirosak a "negativ" osztálykijelölő segítségével.
+
+5. (+0.5 jegy)
+Pszeudoszelektorral hozzunk létre egy olyan szabályt, amelyik a jelszavas táblázat páratlan sorait (a fejlécet is beleértve) félkövérre állítja.
+
+Nyomtatási képnél és képernyőn 800px felbontás alatt a 2 section igazítás és szélesség értékét állítsuk vissza az eredeti értékre (revert)

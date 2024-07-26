@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezések</title>
+
+    <style>
+        li.gyenge {
+            color: red;
+            font-weight: bold;
+        }
+
+        #bal {
+            float: left;
+            width: 45%;
+        }
+
+        #jobb {
+            float: right;
+            width: 45%;
+        }
+
+        #naplo tr:nth-child(odd) {
+            background-color: lightgray;
+        }
+
+        @media screen and (max-width: 800px), print {
+            #bal, #jobb {
+                float: revert;
+                width: revert;
+            }
+        }
+    </style>
+
+    <script>
+        function hozzaad() {
+            const jelszo = document.getElementById('jelszo').value;
+            const li = document.createElement('li');
+            li.innerText = jelszo;
+
+            document.getElementById('jelszavak').append(li);
+        }
+
+        function kiemel() {
+            const gyengeKiemel = document.getElementById('kiemel').checked;
+            const lis = document.querySelectorAll('#jelszavak li');
+            const re = /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/;
+
+            for (let li of lis) {
+                if (gyengeKiemel && re.test(li.innerText)) {
+                    li.classList.add('gyenge');
+                } else {
+                    li.classList.remove('gyenge');
+                }
+            }
+        }
+
+        function naploz(esemeny) {
+            const naplo = document.getElementById('naplo');
+            const tr = naplo.insertRow(-1);
+            const idoTd = tr.insertCell(-1);
+            idoTd.innerText = new Date().toLocaleString();
+            const esemenyTd = tr.insertCell(-1);
+            esemenyTd.innerText = esemeny;
+        }
+
+        function kijelentkezes() {
+            naploz('Kijelentkezés');
+        }
+
+        function bejelentkezes() {
+            const idoTullepes = parseInt(document.getElementById('idotullepes').value);
+
+            naploz('Bejelentkezés');
+
+            if (idoTullepes > 0) {
+                setTimeout(kijelentkezes, idoTullepes * 1000);
+            }
+        }
+    </script>
+</head>
+<body>
+<section id="bal">
+    <label for="idotullepes">Időtúllépés</label>
+    <input id="idotullepes" type="number" value="0" min="0">
+    <button type="button" onclick="bejelentkezes()">Bejelentkezés</button>
+
+    <h1>Bejelentkezések</h1>
+
+    <table id="naplo">
+        <thead>
+        <tr>
+            <th>Idő</th>
+            <th>Esemény</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<section id="jobb">
+    <label for="jelszo">Jelszó</label>
+    <input id="jelszo" type="password">
+    <button type="button" onclick="hozzaad()">Hozzáad</button>
+    <br>
+    <label for="kiemel">Gyenge jelszavak kiemelése</label>
+    <input id="kiemel" type="checkbox" onchange="kiemel()">
+
+    <h1>Korábbi jelszavak</h1>
+
+    <ul id="jelszavak"></ul>
+</section>
+
+</body>
+</html>
